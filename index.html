@@ -105,7 +105,7 @@
     <button onclick="startGame()">Restart</button>
   </div>
   <script>
-    const wordList = ["ABACK","ABASE","ABASH","ABATE","ABBEY","ABBOT","ABEAM","ABHOR","ABIDE","ABLED","ABODE","ABORT","ABOUT","ABOVE","ABUSE","ABUZZ","ABYSS","ACHED","ACHOO","ACING","ACORN","ACRES","ACRID","ACTED","ACTOR","ACUTE","ADAGE","ADAPT","ADDED","ADDER","ADDLE","ADEPT","ADIEU","ADIOS","ADLIB","ADMIT","ADOBE","ADOPT","ADORE","ADORN","ADULT","AEGIS","AFFIX","AFIRE","AFOOT","AFORE","AFOUL","AFTER","AGAIN","AGAPE","AGATE","AGAVE","AGENT","AGILE","AGING","AGLOW","AGONY","AGREE","AHEAD","AIDED","AILED","AIMED","AIRED","AIRER","AISLE","ALACK","ALARM","ALBUM","ALDER","ALERT","ALGAE","ALIAS","ALIBI","ALIEN","ALIGN","ALIKE","ALIVE","ALLAY","ALLEY","ALLOT","ALLOW","ALLOY","ALOFT","ALOHA","ALONE","ALONG","ALOOF","ALOUD","ALPHA","ALTAR","ALTER","AMASS","AMAZE","AMBER","AMBLE","AMEND","AMIGO","AMINO","AMISS","AMITY","AMONG","AMOUR","AMPED","AMPLE","AMPLY","AMUCK","AMUSE","ANGEL","ANGER","ANGLE","ANGRY","ANGST","ANISE","ANKLE","ANNEX","ANNOY","ANNUL","ANNUM","ANODE","ANTIC","ANTSY","ANVIL","AORTA","APACE","APART","APHID","APIAN","APING","APNEA","APPLE","APPLY","APRON","APTLY","ARBOR","ARCED","ARDOR","ARENA","ARGON","ARGOT","ARGUE","ARISE","ARMED","ARMOR","AROMA","AROSE","ARRAY","ARROW","ARSON","ARTSY","ASCOT","ASHEN","ASIDE","ASKED","ASKEW","ASPEN","ASPIC","ASSAY","ASSET","ASTER","ASTIR","ASTRO","ATLAS","ATOLL","ATONE","ATRIA","ATTIC","AUDIO","AUDIT","AUGHT","AUGUR","AURAL","AVAIL","AVERT","AVIAN","AVOID","AWAIT","AWAKE","AWARD","AWARE","AWASH","AWFUL","AWOKE","AXIAL","AXING","AXIOM","AXLED","AZURE",
+        const wordList = ["ABACK","ABASE","ABASH","ABATE","ABBEY","ABBOT","ABEAM","ABHOR","ABIDE","ABLED","ABODE","ABORT","ABOUT","ABOVE","ABUSE","ABUZZ","ABYSS","ACHED","ACHOO","ACING","ACORN","ACRES","ACRID","ACTED","ACTOR","ACUTE","ADAGE","ADAPT","ADDED","ADDER","ADDLE","ADEPT","ADIEU","ADIOS","ADLIB","ADMIT","ADOBE","ADOPT","ADORE","ADORN","ADULT","AEGIS","AFFIX","AFIRE","AFOOT","AFORE","AFOUL","AFTER","AGAIN","AGAPE","AGATE","AGAVE","AGENT","AGILE","AGING","AGLOW","AGONY","AGREE","AHEAD","AIDED","AILED","AIMED","AIRED","AIRER","AISLE","ALACK","ALARM","ALBUM","ALDER","ALERT","ALGAE","ALIAS","ALIBI","ALIEN","ALIGN","ALIKE","ALIVE","ALLAY","ALLEY","ALLOT","ALLOW","ALLOY","ALOFT","ALOHA","ALONE","ALONG","ALOOF","ALOUD","ALPHA","ALTAR","ALTER","AMASS","AMAZE","AMBER","AMBLE","AMEND","AMIGO","AMINO","AMISS","AMITY","AMONG","AMOUR","AMPED","AMPLE","AMPLY","AMUCK","AMUSE","ANGEL","ANGER","ANGLE","ANGRY","ANGST","ANISE","ANKLE","ANNEX","ANNOY","ANNUL","ANNUM","ANODE","ANTIC","ANTSY","ANVIL","AORTA","APACE","APART","APHID","APIAN","APING","APNEA","APPLE","APPLY","APRON","APTLY","ARBOR","ARCED","ARDOR","ARENA","ARGON","ARGOT","ARGUE","ARISE","ARMED","ARMOR","AROMA","AROSE","ARRAY","ARROW","ARSON","ARTSY","ASCOT","ASHEN","ASIDE","ASKED","ASKEW","ASPEN","ASPIC","ASSAY","ASSET","ASTER","ASTIR","ASTRO","ATLAS","ATOLL","ATONE","ATRIA","ATTIC","AUDIO","AUDIT","AUGHT","AUGUR","AURAL","AVAIL","AVERT","AVIAN","AVOID","AWAIT","AWAKE","AWARD","AWARE","AWASH","AWFUL","AWOKE","AXIAL","AXING","AXIOM","AXLED","AZURE",
     "BABEL","BACON","BADDY","BADGE","BADLY","BAGEL","BAGGY","BAIRN","BAIZE","BAKED","BAKER","BALDY","BALED","BALER","BALKY","BALLY","BALMY","BALSA","BANAL","BANDY","BANJO","BARED","BARER","BARGE","BARMY","BARON","BASAL","BASED","BASIC","BASIL","BASIN","BASIS","BASSO","BASTE","BATCH","BATED","BATHE","BATON","BATTY","BAULK","BAWDY","BAYED","BAYOU","BEACH","BEADS","BEADY","BEAKY","BEANO","BEARD","BEAST","BEAUT","BEBOP","BEECH","BEEFY","BEERY","BEFIT","BEFOG","BEGAN","BEGAT","BEGET","BEGIN","BEGUN","BEIGE","BEING","BELAY","BELCH","BELIE","BELLE","BELLY","BELOW","BENCH","BERET","BERRY","BERTH","BERYL","BESET","BESOT","BEVEL","BEZEL","BIBLE","BIDDY","BIDED","BIDET","BIGHT","BIGOT","BIKED","BIKER","BILGE","BILLY","BIMBO","BINGE","BINGO","BIOME","BIPED","BIPOD","BIRCH","BIRTH","BISON","BITER","BITSY","BITTY","BLACK","BLADE","BLAME","BLAND","BLANK","BLARE","BLAST","BLAZE","BLEAK","BLEAR","BLEAT","BLEED","BLEND","BLESS","BLEST","BLIMP","BLIND","BLINI","BLINK","BLISS","BLITZ","BLOAT","BLOCK","BLOKE","BLOND","BLOOD","BLOOM","BLOWN","BLOWY","BLUER","BLUES","BLUFF","BLUNT","BLURB","BLURT","BLUSH","BOARD","BOAST","BOBBY","BODED","BODGE","BOGEY","BOGGY","BOGIE","BOGUS","BOMBE","BONED","BONGO","BONNY","BONUS","BOOBY","BOOED","BOOMY","BOOST","BOOTH","BOOTY","BOOZE","BOOZY","BORAX","BORED","BORER","BORIC","BORNE","BORON","BOSOM","BOSON","BOSSY","BOSUN","BOTCH","BOUGH","BOULE","BOUND","BOWED","BOWEL","BOWER","BOWIE","BOXED","BOXER","BRACE","BRAID","BRAIN","BRAKE","BRAND","BRASH","BRASS","BRAVE","BRAVO","BRAWL","BRAWN","BREAD","BREAK","BREAM","BREED","BRENT","BRIAR","BRIBE","BRICK","BRIDE","BRIEF","BRINE","BRING","BRINK","BRINY","BRISK","BROAD","BROIL","BROKE","BROOD","BROOK","BROOM","BROTH","BROWN","BRUNG","BRUNT","BRUSH","BRUTE","BUDDY","BUDGE","BUGGY","BUGLE","BUILD","BUILT","BULGE","BULGY","BULKY","BULLY","BUMPY","BUNCH","BUNNY","BURLY","BURNT","BURST","BUSED","BUSHY","BUSTY","BUTCH","BUTTE","BUXOM","BUYER","BUZZY","BYLAW","BYWAY",
     "CABAL","CABBY","CABIN","CABLE","CACAO","CACHE","CACTI","CADDY","CADET","CADGE","CADRE","CAGED","CAGEY","CAIRN","CAKED","CALVE","CAMEL","CAMEO","CANAL","CANDY","CANED","CANER","CANNY","CANOE","CANON","CANTO","CAPED","CAPER","CAPON","CARAT","CARED","CARGO","CAROB","CAROL","CAROM","CARRY","CARTE","CARVE","CASED","CASTE","CATCH","CATER","CATTY","CAULK","CAUSE","CAVED","CAVIL","CAWED","CEASE","CEDAR","CEDED","CELLO","CHAFE","CHAFF","CHAIN","CHAIR","CHALK","CHAMP","CHANT","CHAOS","CHARD","CHARM","CHART","CHARY","CHASE","CHASM","CHEAP","CHEAT","CHECK","CHEEK","CHEEP","CHEER","CHESS","CHEST","CHEWY","CHICK","CHIDE","CHIEF","CHILD","CHILI","CHILL","CHIME","CHIMP","CHINA","CHINK","CHIRP","CHIVE","CHOCK","CHOIR","CHOKE","CHOMP","CHORD","CHORE","CHOSE","CHUCK","CHUFF","CHUMP","CHUNK","CHURN","CHUTE","CIDER","CIGAR","CINCH","CIRCA","CITED","CIVIC","CIVIL","CLAIM","CLAMP","CLANG","CLANK","CLASH","CLASP","CLASS","CLEAN","CLEAR","CLEFT","CLERK","CLICK","CLIFF","CLIMB","CLIME","CLING","CLINK","CLOAK","CLOCK","CLOMP","CLONE","CLOSE","CLOTH","CLOUD","CLOUT","CLOVE","CLOWN","CLUCK","CLUED","CLUMP","CLUNG","CLUNK","COACH","COAST","COBRA","COCKY","COCOA","CODED","CODER","CODEX","COKED","COLIC","COLON","COLOR","COMBO","COMET","COMFY","COMIC","COMMA","CONCH","CONDO","CONED","CONEY","CONGA","CONIC","COOED","COPED","COPER","COPSE","CORAL","CORER","CORGI","CORNY","CORPS","COSET","COSTA","COUCH","COUGH","COULD","COUNT","COUPE","COURT","COVEN","COVER","COVET","COVEY","COWED","COWER","COYLY","COYPU","COZEN","CRACK","CRAFT","CRAMP","CRANE","CRANK","CRASH","CRATE","CRAVE","CRAWL","CRAZE","CRAZY","CREAK","CREAM","CREDO","CREED","CREEK","CREEP","CREME","CREPE","CREPT","CRESS","CREST","CRICK","CRIED","CRIME","CRIMP","CRISP","CROAK","CROCK","CROFT","CRONE","CRONY","CROOK","CROON","CROSS","CROUP","CROWD","CROWN","CRUDE","CRUEL","CRUET","CRUFT","CRUMB","CRUSH","CRUST","CRYPT","CUBBY","CUBED","CUBIC","CUBIT","CUING","CULPA","CUMIN","CUPID","CUPPA","CURED","CURIA","CURIE","CURIO","CURLY","CURRY","CURSE","CURVE","CURVY","CUSHY","CUTER","CUTIE","CUTUP","CYCLE","CYNIC",
     "DACHA","DADDY","DAILY","DAIRY","DAISY","DALLY","DANCE","DANDY","DARED","DASHY","DATED","DATER","DATUM","DAUNT","DAZED","DEALT","DEARY","DEATH","DEBAR","DEBIT","DEBUG","DEBUT","DECAF","DECAL","DECAY","DECOR","DECOY","DECRY","DEFER","DEFOG","DEIFY","DEIGN","DEITY","DELAY","DELTA","DELVE","DEMON","DEMUR","DENIM","DENSE","DEPOT","DEPTH","DERBY","DETER","DEUCE","DEVIL","DEWED","DIARY","DICED","DICEY","DICKY","DICTA","DIDDY","DIGIT","DILLY","DIMLY","DINAR","DINED","DINER","DINGO","DINGY","DINKY","DIODE","DIPPY","DIRER","DIRGE","DIRTY","DISCO","DISHY","DITCH","DITTO","DITTY","DIVAN","DIVED","DIVER","DIVOT","DIVVY","DIZZY","DJINN","DODGE","DODGY","DOGGY","DOGMA","DOILY","DOING","DOLCE","DOLED","DOLLY","DOMED","DONNA","DONOR","DONUT","DOOZY","DOPED","DOPEY","DORKY","DOSED","DOTED","DOTTY","DOUBT","DOUGH","DOUSE","DOWDY","DOWEL","DOWNY","DOWRY","DOWSE","DOYEN","DOZED","DOZEN","DRAFT","DRAIN","DRAKE","DRAMA","DRANK","DRAPE","DRAWL","DRAWN","DREAD","DREAM","DREAR","DRECK","DRESS","DRIED","DRIER","DRIFT","DRILL","DRILY","DRINK","DRIVE","DROID","DROLL","DRONE","DROOL","DROOP","DROSS","DROVE","DROWN","DRUID","DRUNK","DRYAD","DRYER","DRYLY","DUCAL","DUCAT","DUCHY","DUCKY","DULLY","DUMMY","DUMPY","DUNCE","DUPED","DUSKY","DUSTY","DUTCH","DUVET","DWARF","DWEEB","DWELL","DWELT","DYING",
@@ -140,9 +140,6 @@
     let selected = null; // {row: 1 or 2, idx: index}
     let isAnimating = false;
 
-    // Stores what is shown on the back face during flip animation
-    let backFaces = { row1: [], row2: [] };
-
     function shuffle(arr) {
       let a = arr.slice();
       for (let i = a.length - 1; i > 0; i--) {
@@ -168,61 +165,47 @@
       swapCount = 0;
       selected = null;
       isAnimating = false;
-
-      // Initially, back faces just match front faces
-      backFaces.row1 = [...row1];
-      backFaces.row2 = [...row2];
-
       updateDisplay();
       document.getElementById("gameStatus").textContent = "";
     }
 
     function updateDisplay() {
-      const r1 = document.getElementById("row1");
-      const r2 = document.getElementById("row2");
-      r1.innerHTML = "";
-      r2.innerHTML = "";
-
-      row1.forEach((ch, i) => {
-        r1.appendChild(createTile("row1", i, ch, backFaces.row1[i], selected && selected.row === 1 && selected.idx === i));
-      });
-
-      row2.forEach((ch, i) => {
-        r2.appendChild(createTile("row2", i, ch, backFaces.row2[i], selected && selected.row === 2 && selected.idx === i));
-      });
-
+      renderRow(document.getElementById("row1"), row1, 1);
+      renderRow(document.getElementById("row2"), row2, 2);
       document.getElementById("swapCount").textContent = swapCount;
     }
 
-    function createTile(rowName, idx, frontChar, backChar, isSelected) {
-      const container = document.createElement('div');
-      container.className = 'tile-container';
+    function renderRow(container, rowData, rowNum) {
+      container.innerHTML = "";
+      for (let i = 0; i < rowData.length; i++) {
+        const tileContainer = document.createElement('div');
+        tileContainer.className = 'tile-container';
 
-      const tile = document.createElement('div');
-      tile.className = 'tile' + (isSelected ? ' selected' : '');
-      tile.setAttribute('data-row', rowName);
-      tile.setAttribute('data-idx', idx);
+        const tile = document.createElement('div');
+        tile.className = 'tile' + (selected && selected.row === rowNum && selected.idx === i ? ' selected' : '');
+        tile.setAttribute('data-row', rowNum);
+        tile.setAttribute('data-idx', i);
 
-      // Set up faces
-      const front = document.createElement('div');
-      front.className = 'tile-face front';
-      front.textContent = frontChar;
+        const front = document.createElement('div');
+        front.className = 'tile-face front';
+        front.textContent = rowData[i];
 
-      const back = document.createElement('div');
-      back.className = 'tile-face back';
-      back.textContent = backChar;
+        const back = document.createElement('div');
+        back.className = 'tile-face back';
+        back.textContent = "";
 
-      tile.appendChild(front);
-      tile.appendChild(back);
+        tile.appendChild(front);
+        tile.appendChild(back);
 
-      tile.onclick = () => selectTile(rowName === "row1" ? 1 : 2, idx);
+        tile.onclick = () => selectTile(rowNum, i);
 
-      container.appendChild(tile);
-      return container;
+        tileContainer.appendChild(tile);
+        container.appendChild(tileContainer);
+      }
     }
 
     function selectTile(row, idx) {
-      if (isAnimating) return; // Prevent interaction during animation
+      if (isAnimating) return;
 
       if (!selected) {
         selected = { row, idx };
@@ -231,73 +214,55 @@
         selected = null;
         updateDisplay();
       } else {
-        animateSwap(selected, { row, idx });
+        flipTiles(selected, { row, idx });
       }
     }
 
-    function animateSwap(sel1, sel2) {
+    function flipTiles(sel1, sel2) {
       isAnimating = true;
 
-      // Prepare back faces for the animation
-      let row1Arr = sel1.row === 1 ? row1 : row2;
-      let row2Arr = sel2.row === 1 ? row1 : row2;
-
-      let backRow1 = sel1.row === 1 ? backFaces.row1 : backFaces.row2;
-      let backRow2 = sel2.row === 1 ? backFaces.row1 : backFaces.row2;
-
-      // Set the back face of each tile to the letter it will become
-      if (sel1.row === sel2.row) {
-        // Within the same row
-        backRow1[sel1.idx] = row1Arr[sel2.idx];
-        backRow1[sel2.idx] = row1Arr[sel1.idx];
-      } else {
-        // Between rows
-        if (sel1.row === 1) {
-          backFaces.row1[sel1.idx] = row2[sel2.idx];
-          backFaces.row2[sel2.idx] = row1[sel1.idx];
-        } else {
-          backFaces.row2[sel1.idx] = row1[sel2.idx];
-          backFaces.row1[sel2.idx] = row2[sel1.idx];
-        }
-      }
-
-      // Update display to show new back faces
-      updateDisplay();
-
-      // Find the two tile elements to animate
+      // Find the two tile elements
       const row1Tiles = document.getElementById(sel1.row === 1 ? "row1" : "row2").children;
       const row2Tiles = document.getElementById(sel2.row === 1 ? "row1" : "row2").children;
 
       const tile1 = row1Tiles[sel1.idx].firstChild;
       const tile2 = row2Tiles[sel2.idx].firstChild;
 
+      // Set the back face to the new letter
+      const getRowArray = row => row === 1 ? row1 : row2;
+      const setBackFace = (tile, letter) => tile.querySelector('.tile-face.back').textContent = letter;
+
+      const old1 = getRowArray(sel1.row)[sel1.idx];
+      const old2 = getRowArray(sel2.row)[sel2.idx];
+
+      setBackFace(tile1, old2);
+      setBackFace(tile2, old1);
+
+      // Add flip class
       tile1.classList.add("flipping");
       tile2.classList.add("flipping");
 
-      // After half the animation, swap the letters in the data arrays
+      // At halfway point, swap the letters in the data arrays and update the front face
       setTimeout(() => {
         if (sel1.row === sel2.row) {
-          // Swap within same row
           if (sel1.row === 1) {
             [row1[sel1.idx], row1[sel2.idx]] = [row1[sel2.idx], row1[sel1.idx]];
           } else {
             [row2[sel1.idx], row2[sel2.idx]] = [row2[sel2.idx], row2[sel1.idx]];
           }
         } else {
-          // Swap between rows
           if (sel1.row === 1) {
             [row1[sel1.idx], row2[sel2.idx]] = [row2[sel2.idx], row1[sel1.idx]];
           } else {
             [row2[sel1.idx], row1[sel2.idx]] = [row1[sel2.idx], row2[sel1.idx]];
           }
         }
-
-        // Reset back faces to match front faces after swap
-        backFaces.row1 = [...row1];
-        backFaces.row2 = [...row2];
+        // Update the front face to the new value
+        tile1.querySelector('.tile-face.front').textContent = getRowArray(sel1.row)[sel1.idx];
+        tile2.querySelector('.tile-face.front').textContent = getRowArray(sel2.row)[sel2.idx];
       }, 200);
 
-      // After the animation completes, clear flipping class, reset state, and update
+      // After animation, remove flipping, reset state, and check win
       setTimeout(() => {
         tile1.classList.remove("flipping");
         tile2.classList.remove("flipping");
@@ -327,5 +292,11 @@
 </html>
 
 
-    
+
+
+
+
+
+
+
 
