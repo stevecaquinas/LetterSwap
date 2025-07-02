@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SWAPPLE</title>
+  <title>Letter Swap Word Game</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:700" rel="stylesheet">
   <style>
     body {
@@ -27,6 +27,10 @@
       transform-style: preserve-3d;
       transition: transform 0.4s cubic-bezier(.4,2,.6,1);
       cursor: pointer;
+    }
+    .tile.locked {
+      pointer-events: none;
+      cursor: default;
     }
     .tile.flipping {
       transform: rotateY(180deg);
@@ -60,6 +64,12 @@
       border-color: #5a9635;
       color: #183616;
     }
+    .tile.locked .tile-face.front,
+    .tile.locked .tile-face.back {
+      background: #7fe47f !important;
+      border-color: #289c28;
+      color: #183616;
+    }
     #game {
       display: inline-block;
       padding: 24px 32px;
@@ -72,6 +82,7 @@
       padding: 8px 18px;
       font-size: 1em;
       margin-top: 10px;
+      margin-left: 8px;
       border-radius: 4px;
       border: 1.5px solid #b39c6a;
       background: #eac784;
@@ -82,7 +93,13 @@
       box-shadow: 1px 2px 2px #6b4a1b;
       transition: background 0.2s, border-color 0.2s;
     }
-    button:hover {
+    button:disabled {
+      background: #ccc;
+      color: #888;
+      cursor: not-allowed;
+      border-color: #999;
+    }
+    button:hover:enabled {
       background: #a3d977;
       border-color: #5a9635;
       color: #183616;
@@ -93,6 +110,11 @@
       margin-top: 12px;
       min-height: 1.5em;
     }
+    #hintCount {
+      color: #a3d977;
+      font-weight: bold;
+      margin-bottom: 0;
+    }
   </style>
 </head>
 <body>
@@ -101,11 +123,14 @@
     <div id="row1" class="tile-row"></div>
     <div id="row2" class="tile-row"></div>
     <p>Swaps: <span id="swapCount">0</span></p>
+    <p id="hintCount"></p>
     <p id="gameStatus"></p>
     <button onclick="startGame()">Restart</button>
+    <button id="hintBtn" onclick="useHint()">Hint</button>
+    <button id="revealBtn" onclick="revealTiles()">Reveal</button>
   </div>
   <script>
-            const wordList = ["ABACK","ABASE","ABASH","ABATE","ABBEY","ABBOT","ABEAM","ABHOR","ABIDE","ABLED","ABODE","ABORT","ABOUT","ABOVE","ABUSE","ABUZZ","ABYSS","ACHED","ACHOO","ACING","ACORN","ACRES","ACRID","ACTED","ACTOR","ACUTE","ADAGE","ADAPT","ADDED","ADDER","ADDLE","ADEPT","ADIEU","ADIOS","ADLIB","ADMIT","ADOBE","ADOPT","ADORE","ADORN","ADULT","AEGIS","AFFIX","AFIRE","AFOOT","AFORE","AFOUL","AFTER","AGAIN","AGAPE","AGATE","AGAVE","AGENT","AGILE","AGING","AGLOW","AGONY","AGREE","AHEAD","AIDED","AILED","AIMED","AIRED","AIRER","AISLE","ALACK","ALARM","ALBUM","ALDER","ALERT","ALGAE","ALIAS","ALIBI","ALIEN","ALIGN","ALIKE","ALIVE","ALLAY","ALLEY","ALLOT","ALLOW","ALLOY","ALOFT","ALOHA","ALONE","ALONG","ALOOF","ALOUD","ALPHA","ALTAR","ALTER","AMASS","AMAZE","AMBER","AMBLE","AMEND","AMIGO","AMINO","AMISS","AMITY","AMONG","AMOUR","AMPED","AMPLE","AMPLY","AMUCK","AMUSE","ANGEL","ANGER","ANGLE","ANGRY","ANGST","ANISE","ANKLE","ANNEX","ANNOY","ANNUL","ANNUM","ANODE","ANTIC","ANTSY","ANVIL","AORTA","APACE","APART","APHID","APIAN","APING","APNEA","APPLE","APPLY","APRON","APTLY","ARBOR","ARCED","ARDOR","ARENA","ARGON","ARGOT","ARGUE","ARISE","ARMED","ARMOR","AROMA","AROSE","ARRAY","ARROW","ARSON","ARTSY","ASCOT","ASHEN","ASIDE","ASKED","ASKEW","ASPEN","ASPIC","ASSAY","ASSET","ASTER","ASTIR","ASTRO","ATLAS","ATOLL","ATONE","ATRIA","ATTIC","AUDIO","AUDIT","AUGHT","AUGUR","AURAL","AVAIL","AVERT","AVIAN","AVOID","AWAIT","AWAKE","AWARD","AWARE","AWASH","AWFUL","AWOKE","AXIAL","AXING","AXIOM","AXLED","AZURE",
+                const wordList = ["ABACK","ABASE","ABASH","ABATE","ABBEY","ABBOT","ABEAM","ABHOR","ABIDE","ABLED","ABODE","ABORT","ABOUT","ABOVE","ABUSE","ABUZZ","ABYSS","ACHED","ACHOO","ACING","ACORN","ACRES","ACRID","ACTED","ACTOR","ACUTE","ADAGE","ADAPT","ADDED","ADDER","ADDLE","ADEPT","ADIEU","ADIOS","ADLIB","ADMIT","ADOBE","ADOPT","ADORE","ADORN","ADULT","AEGIS","AFFIX","AFIRE","AFOOT","AFORE","AFOUL","AFTER","AGAIN","AGAPE","AGATE","AGAVE","AGENT","AGILE","AGING","AGLOW","AGONY","AGREE","AHEAD","AIDED","AILED","AIMED","AIRED","AIRER","AISLE","ALACK","ALARM","ALBUM","ALDER","ALERT","ALGAE","ALIAS","ALIBI","ALIEN","ALIGN","ALIKE","ALIVE","ALLAY","ALLEY","ALLOT","ALLOW","ALLOY","ALOFT","ALOHA","ALONE","ALONG","ALOOF","ALOUD","ALPHA","ALTAR","ALTER","AMASS","AMAZE","AMBER","AMBLE","AMEND","AMIGO","AMINO","AMISS","AMITY","AMONG","AMOUR","AMPED","AMPLE","AMPLY","AMUCK","AMUSE","ANGEL","ANGER","ANGLE","ANGRY","ANGST","ANISE","ANKLE","ANNEX","ANNOY","ANNUL","ANNUM","ANODE","ANTIC","ANTSY","ANVIL","AORTA","APACE","APART","APHID","APIAN","APING","APNEA","APPLE","APPLY","APRON","APTLY","ARBOR","ARCED","ARDOR","ARENA","ARGON","ARGOT","ARGUE","ARISE","ARMED","ARMOR","AROMA","AROSE","ARRAY","ARROW","ARSON","ARTSY","ASCOT","ASHEN","ASIDE","ASKED","ASKEW","ASPEN","ASPIC","ASSAY","ASSET","ASTER","ASTIR","ASTRO","ATLAS","ATOLL","ATONE","ATRIA","ATTIC","AUDIO","AUDIT","AUGHT","AUGUR","AURAL","AVAIL","AVERT","AVIAN","AVOID","AWAIT","AWAKE","AWARD","AWARE","AWASH","AWFUL","AWOKE","AXIAL","AXING","AXIOM","AXLED","AZURE",
     "BABEL","BACON","BADDY","BADGE","BADLY","BAGEL","BAGGY","BAIRN","BAIZE","BAKED","BAKER","BALDY","BALED","BALER","BALKY","BALLY","BALMY","BALSA","BANAL","BANDY","BANJO","BARED","BARER","BARGE","BARMY","BARON","BASAL","BASED","BASIC","BASIL","BASIN","BASIS","BASSO","BASTE","BATCH","BATED","BATHE","BATON","BATTY","BAULK","BAWDY","BAYED","BAYOU","BEACH","BEADS","BEADY","BEAKY","BEANO","BEARD","BEAST","BEAUT","BEBOP","BEECH","BEEFY","BEERY","BEFIT","BEFOG","BEGAN","BEGAT","BEGET","BEGIN","BEGUN","BEIGE","BEING","BELAY","BELCH","BELIE","BELLE","BELLY","BELOW","BENCH","BERET","BERRY","BERTH","BERYL","BESET","BESOT","BEVEL","BEZEL","BIBLE","BIDDY","BIDED","BIDET","BIGHT","BIGOT","BIKED","BIKER","BILGE","BILLY","BIMBO","BINGE","BINGO","BIOME","BIPED","BIPOD","BIRCH","BIRTH","BISON","BITER","BITSY","BITTY","BLACK","BLADE","BLAME","BLAND","BLANK","BLARE","BLAST","BLAZE","BLEAK","BLEAR","BLEAT","BLEED","BLEND","BLESS","BLEST","BLIMP","BLIND","BLINI","BLINK","BLISS","BLITZ","BLOAT","BLOCK","BLOKE","BLOND","BLOOD","BLOOM","BLOWN","BLOWY","BLUER","BLUES","BLUFF","BLUNT","BLURB","BLURT","BLUSH","BOARD","BOAST","BOBBY","BODED","BODGE","BOGEY","BOGGY","BOGIE","BOGUS","BOMBE","BONED","BONGO","BONNY","BONUS","BOOBY","BOOED","BOOMY","BOOST","BOOTH","BOOTY","BOOZE","BOOZY","BORAX","BORED","BORER","BORIC","BORNE","BORON","BOSOM","BOSON","BOSSY","BOSUN","BOTCH","BOUGH","BOULE","BOUND","BOWED","BOWEL","BOWER","BOWIE","BOXED","BOXER","BRACE","BRAID","BRAIN","BRAKE","BRAND","BRASH","BRASS","BRAVE","BRAVO","BRAWL","BRAWN","BREAD","BREAK","BREAM","BREED","BRENT","BRIAR","BRIBE","BRICK","BRIDE","BRIEF","BRINE","BRING","BRINK","BRINY","BRISK","BROAD","BROIL","BROKE","BROOD","BROOK","BROOM","BROTH","BROWN","BRUNG","BRUNT","BRUSH","BRUTE","BUDDY","BUDGE","BUGGY","BUGLE","BUILD","BUILT","BULGE","BULGY","BULKY","BULLY","BUMPY","BUNCH","BUNNY","BURLY","BURNT","BURST","BUSED","BUSHY","BUSTY","BUTCH","BUTTE","BUXOM","BUYER","BUZZY","BYLAW","BYWAY",
     "CABAL","CABBY","CABIN","CABLE","CACAO","CACHE","CACTI","CADDY","CADET","CADGE","CADRE","CAGED","CAGEY","CAIRN","CAKED","CALVE","CAMEL","CAMEO","CANAL","CANDY","CANED","CANER","CANNY","CANOE","CANON","CANTO","CAPED","CAPER","CAPON","CARAT","CARED","CARGO","CAROB","CAROL","CAROM","CARRY","CARTE","CARVE","CASED","CASTE","CATCH","CATER","CATTY","CAULK","CAUSE","CAVED","CAVIL","CAWED","CEASE","CEDAR","CEDED","CELLO","CHAFE","CHAFF","CHAIN","CHAIR","CHALK","CHAMP","CHANT","CHAOS","CHARD","CHARM","CHART","CHARY","CHASE","CHASM","CHEAP","CHEAT","CHECK","CHEEK","CHEEP","CHEER","CHESS","CHEST","CHEWY","CHICK","CHIDE","CHIEF","CHILD","CHILI","CHILL","CHIME","CHIMP","CHINA","CHINK","CHIRP","CHIVE","CHOCK","CHOIR","CHOKE","CHOMP","CHORD","CHORE","CHOSE","CHUCK","CHUFF","CHUMP","CHUNK","CHURN","CHUTE","CIDER","CIGAR","CINCH","CIRCA","CITED","CIVIC","CIVIL","CLAIM","CLAMP","CLANG","CLANK","CLASH","CLASP","CLASS","CLEAN","CLEAR","CLEFT","CLERK","CLICK","CLIFF","CLIMB","CLIME","CLING","CLINK","CLOAK","CLOCK","CLOMP","CLONE","CLOSE","CLOTH","CLOUD","CLOUT","CLOVE","CLOWN","CLUCK","CLUED","CLUMP","CLUNG","CLUNK","COACH","COAST","COBRA","COCKY","COCOA","CODED","CODER","CODEX","COKED","COLIC","COLON","COLOR","COMBO","COMET","COMFY","COMIC","COMMA","CONCH","CONDO","CONED","CONEY","CONGA","CONIC","COOED","COPED","COPER","COPSE","CORAL","CORER","CORGI","CORNY","CORPS","COSET","COSTA","COUCH","COUGH","COULD","COUNT","COUPE","COURT","COVEN","COVER","COVET","COVEY","COWED","COWER","COYLY","COYPU","COZEN","CRACK","CRAFT","CRAMP","CRANE","CRANK","CRASH","CRATE","CRAVE","CRAWL","CRAZE","CRAZY","CREAK","CREAM","CREDO","CREED","CREEK","CREEP","CREME","CREPE","CREPT","CRESS","CREST","CRICK","CRIED","CRIME","CRIMP","CRISP","CROAK","CROCK","CROFT","CRONE","CRONY","CROOK","CROON","CROSS","CROUP","CROWD","CROWN","CRUDE","CRUEL","CRUET","CRUFT","CRUMB","CRUSH","CRUST","CRYPT","CUBBY","CUBED","CUBIC","CUBIT","CUING","CULPA","CUMIN","CUPID","CUPPA","CURED","CURIA","CURIE","CURIO","CURLY","CURRY","CURSE","CURVE","CURVY","CUSHY","CUTER","CUTIE","CUTUP","CYCLE","CYNIC",
     "DACHA","DADDY","DAILY","DAIRY","DAISY","DALLY","DANCE","DANDY","DARED","DASHY","DATED","DATER","DATUM","DAUNT","DAZED","DEALT","DEARY","DEATH","DEBAR","DEBIT","DEBUG","DEBUT","DECAF","DECAL","DECAY","DECOR","DECOY","DECRY","DEFER","DEFOG","DEIFY","DEIGN","DEITY","DELAY","DELTA","DELVE","DEMON","DEMUR","DENIM","DENSE","DEPOT","DEPTH","DERBY","DETER","DEUCE","DEVIL","DEWED","DIARY","DICED","DICEY","DICKY","DICTA","DIDDY","DIGIT","DILLY","DIMLY","DINAR","DINED","DINER","DINGO","DINGY","DINKY","DIODE","DIPPY","DIRER","DIRGE","DIRTY","DISCO","DISHY","DITCH","DITTO","DITTY","DIVAN","DIVED","DIVER","DIVOT","DIVVY","DIZZY","DJINN","DODGE","DODGY","DOGGY","DOGMA","DOILY","DOING","DOLCE","DOLED","DOLLY","DOMED","DONNA","DONOR","DONUT","DOOZY","DOPED","DOPEY","DORKY","DOSED","DOTED","DOTTY","DOUBT","DOUGH","DOUSE","DOWDY","DOWEL","DOWNY","DOWRY","DOWSE","DOYEN","DOZED","DOZEN","DRAFT","DRAIN","DRAKE","DRAMA","DRANK","DRAPE","DRAWL","DRAWN","DREAD","DREAM","DREAR","DRECK","DRESS","DRIED","DRIER","DRIFT","DRILL","DRILY","DRINK","DRIVE","DROID","DROLL","DRONE","DROOL","DROOP","DROSS","DROVE","DROWN","DRUID","DRUNK","DRYAD","DRYER","DRYLY","DUCAL","DUCAT","DUCHY","DUCKY","DULLY","DUMMY","DUMPY","DUNCE","DUPED","DUSKY","DUSTY","DUTCH","DUVET","DWARF","DWEEB","DWELL","DWELT","DYING",
@@ -139,6 +164,8 @@
     let swapCount = 0;
     let selected = null; // {row: 1 or 2, idx: index}
     let isAnimating = false;
+    let locked = Array(10).fill(false); // Locks for each tile
+    let hintsLeft = 5;
 
     function shuffle(arr) {
       let a = arr.slice();
@@ -164,14 +191,20 @@
       swapCount = 0;
       selected = null;
       isAnimating = false;
+      locked = Array(10).fill(false);
+      hintsLeft = 5;
       updateDisplay();
       document.getElementById("gameStatus").textContent = "";
+      document.getElementById("hintBtn").disabled = false;
+      document.getElementById("revealBtn").disabled = false;
     }
 
     function updateDisplay() {
       renderRow(document.getElementById("row1"), tiles.slice(0, 5), 1);
       renderRow(document.getElementById("row2"), tiles.slice(5, 10), 2);
       document.getElementById("swapCount").textContent = swapCount;
+      document.getElementById("hintCount").textContent = `Hints left: ${hintsLeft}`;
+      if (hintsLeft === 0) document.getElementById("hintBtn").disabled = true;
     }
 
     function renderRow(container, rowData, rowNum) {
@@ -181,8 +214,11 @@
         tileContainer.className = 'tile-container';
 
         const tile = document.createElement('div');
-        let tileIndex = (rowNum-1)*5 + i;
-        tile.className = 'tile' + (selected && selected.row === rowNum && selected.idx === i ? ' selected' : '');
+        let tileIndex = (rowNum - 1) * 5 + i;
+        let isLocked = locked[tileIndex];
+        tile.className = 'tile' +
+          (selected && selected.row === rowNum && selected.idx === i ? ' selected' : '') +
+          (isLocked ? ' locked' : '');
         tile.setAttribute('data-row', rowNum);
         tile.setAttribute('data-idx', i);
 
@@ -197,7 +233,9 @@
         tile.appendChild(front);
         tile.appendChild(back);
 
-        tile.onclick = () => selectTile(rowNum, i);
+        if (!isLocked) {
+          tile.onclick = () => selectTile(rowNum, i);
+        }
 
         tileContainer.appendChild(tile);
         container.appendChild(tileContainer);
@@ -206,48 +244,50 @@
 
     function selectTile(row, idx) {
       if (isAnimating) return;
+      const tileIndex = (row - 1) * 5 + idx;
+      if (locked[tileIndex]) return;
 
       if (!selected) {
         selected = { row, idx };
         updateDisplay();
-      } else if (selected.row === row && selected.idx === idx) {
-        selected = null;
-        updateDisplay();
       } else {
-        flipTiles(selected, { row, idx });
+        const selIdx = (selected.row - 1) * 5 + selected.idx;
+        if (selected.row === row && selected.idx === idx) {
+          selected = null;
+          updateDisplay();
+        } else if (locked[selIdx] || locked[tileIndex]) {
+          selected = null;
+          updateDisplay();
+        } else {
+          flipTiles(selected, { row, idx });
+        }
       }
     }
 
     function flipTiles(sel1, sel2) {
       isAnimating = true;
 
-      // Find the two tile elements
       const row1Tiles = document.getElementById(sel1.row === 1 ? "row1" : "row2").children;
       const row2Tiles = document.getElementById(sel2.row === 1 ? "row1" : "row2").children;
 
       const tile1 = row1Tiles[sel1.idx].firstChild;
       const tile2 = row2Tiles[sel2.idx].firstChild;
 
-      // Absolute indices in the 10-letter tile array
-      const idx1 = (sel1.row-1)*5 + sel1.idx;
-      const idx2 = (sel2.row-1)*5 + sel2.idx;
+      const idx1 = (sel1.row - 1) * 5 + sel1.idx;
+      const idx2 = (sel2.row - 1) * 5 + sel2.idx;
 
-      // Set the back face to the letter it will become
       tile1.querySelector('.tile-face.back').textContent = tiles[idx2];
       tile2.querySelector('.tile-face.back').textContent = tiles[idx1];
 
-      // Add flip class
       tile1.classList.add("flipping");
       tile2.classList.add("flipping");
 
-      // At halfway point, swap the letters in the tiles array and update the front face
       setTimeout(() => {
         [tiles[idx1], tiles[idx2]] = [tiles[idx2], tiles[idx1]];
         tile1.querySelector('.tile-face.front').textContent = tiles[idx1];
         tile2.querySelector('.tile-face.front').textContent = tiles[idx2];
       }, 200);
 
-      // After animation, remove flipping, reset state, and check win
       setTimeout(() => {
         tile1.classList.remove("flipping");
         tile2.classList.remove("flipping");
@@ -257,6 +297,119 @@
         updateDisplay();
         checkWin();
       }, 400);
+    }
+
+    function useHint() {
+      if (hintsLeft === 0 || isAnimating) return;
+      // Find the first incorrect and unlocked tile and put the correct letter there
+      const solution = (word1 + word2).split("");
+      let indices = [];
+      for (let i = 0; i < 10; i++) {
+        if (!locked[i] && tiles[i] !== solution[i]) {
+          indices.push(i);
+        }
+      }
+      if (indices.length === 0) return;
+      const i = indices[0];
+      // Find where the correct letter is among unlocked tiles
+      let targetLetter = solution[i];
+      let swapIdx = -1;
+      for (let j = 0; j < 10; j++) {
+        if (!locked[j] && tiles[j] === targetLetter && j !== i) {
+          swapIdx = j;
+          break;
+        }
+      }
+      // If the correct letter is already in place, just lock it
+      if (tiles[i] === targetLetter) {
+        locked[i] = true;
+      } else if (swapIdx !== -1) {
+        // Animate the flip
+        animateSingleFlip(i, swapIdx, () => {
+          locked[i] = true;
+          updateDisplay();
+          checkWin();
+        });
+      }
+      hintsLeft--;
+      updateDisplay();
+      if (hintsLeft === 0) document.getElementById("hintBtn").disabled = true;
+    }
+
+    function animateSingleFlip(i, j, callback) {
+      isAnimating = true;
+      const rowi = i < 5 ? 1 : 2;
+      const idxi = i % 5;
+      const rowj = j < 5 ? 1 : 2;
+      const idxj = j % 5;
+      const row1Tiles = document.getElementById(rowi === 1 ? "row1" : "row2").children;
+      const row2Tiles = document.getElementById(rowj === 1 ? "row1" : "row2").children;
+      const tile1 = row1Tiles[idxi].firstChild;
+      const tile2 = row2Tiles[idxj].firstChild;
+
+      tile1.querySelector('.tile-face.back').textContent = tiles[j];
+      tile2.querySelector('.tile-face.back').textContent = tiles[i];
+
+      tile1.classList.add("flipping");
+      tile2.classList.add("flipping");
+
+      setTimeout(() => {
+        [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+        tile1.querySelector('.tile-face.front').textContent = tiles[i];
+        tile2.querySelector('.tile-face.front').textContent = tiles[j];
+      }, 200);
+
+      setTimeout(() => {
+        tile1.classList.remove("flipping");
+        tile2.classList.remove("flipping");
+        isAnimating = false;
+        callback();
+      }, 400);
+    }
+
+    function revealTiles() {
+      if (isAnimating) return;
+      document.getElementById("revealBtn").disabled = true;
+      // Animate all tiles to their correct positions
+      const solution = (word1 + word2).split("");
+      let moves = [];
+      for (let i = 0; i < 10; i++) {
+        if (tiles[i] !== solution[i]) {
+          // Find the first index after i where the correct letter exists and is not already in place
+          for (let j = i + 1; j < 10; j++) {
+            if (tiles[j] === solution[i] && tiles[j] !== solution[j]) {
+              moves.push([i, j]);
+              // Swap immediately for the next round of checks
+              [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+              break;
+            }
+          }
+        }
+      }
+      // Now re-scramble back so we can animate
+      for (let k = moves.length - 1; k >= 0; k--) {
+        const [i, j] = moves[k];
+        [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+      }
+      // Animate swaps one by one
+      function animateMoves(idx) {
+        if (idx >= moves.length) {
+          // All done, lock all tiles
+          locked = Array(10).fill(true);
+          updateDisplay();
+          checkWin();
+          return;
+        }
+        const [i, j] = moves[idx];
+        animateSingleFlip(i, j, () => animateMoves(idx + 1));
+      }
+      if (moves.length === 0) {
+        locked = Array(10).fill(true);
+        updateDisplay();
+        checkWin();
+      } else {
+        animateMoves(0);
+      }
     }
 
     function checkWin() {
@@ -283,4 +436,4 @@
 
 
 
-
+  
