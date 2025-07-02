@@ -3,43 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <title>Letter Swap Word Game</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:700" rel="stylesheet">
   <style>
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #fcfcf7;
+      font-family: 'Roboto Slab', 'Times New Roman', serif;
+      background: #111;
       text-align: center;
       padding: 30px;
+      color: #f7f3e9;
     }
     .tile-row {
       margin-bottom: 10px;
     }
     .tile {
       display: inline-block;
-      width: 40px;
-      height: 40px;
+      width: 48px;
+      height: 48px;
       margin: 3px;
-      background: #f7f3e9;
+      background: #eac784; /* Scrabble tile color */
       border: 2px solid #b39c6a;
-      border-radius: 4px;
-      font-size: 1.5em;
+      border-radius: 6px;
+      font-family: 'Roboto Slab', 'Times New Roman', serif;
+      font-size: 2em;
+      font-weight: bold;
       text-align: center;
       vertical-align: middle;
-      line-height: 40px;
+      line-height: 48px;
       cursor: pointer;
       user-select: none;
-      box-shadow: 2px 2px 3px #aaa;
-      transition: background 0.2s, border-color 0.2s;
+      box-shadow: 2px 4px 6px #6b4a1b, 0 1px #fff inset;
+      color: #3e3220;
+      text-shadow: 1px 1px 0 #fff2, 0px 2px 2px #b39c6a;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.3s;
+      perspective: 400px;
+      position: relative;
     }
     .tile.selected {
-      background: #ffe082;
-      border-color: #fbc02d;
+      background: #a3d977; /* Greenish highlight */
+      border-color: #5a9635;
+      color: #183616;
+    }
+    .tile.flipping {
+      animation: flip 0.6s;
+    }
+    @keyframes flip {
+      0%   { transform: rotateY(0deg);}
+      40%  { transform: rotateY(90deg);}
+      60%  { transform: rotateY(270deg);}
+      100% { transform: rotateY(360deg);}
     }
     #game {
       display: inline-block;
       padding: 24px 32px;
-      background: #fffbe9;
+      background: #181818;
       border-radius: 8px;
-      box-shadow: 0 2px 12px #eee;
+      box-shadow: 0 2px 12px #000;
       margin-top: 40px;
     }
     button {
@@ -47,18 +65,23 @@
       font-size: 1em;
       margin-top: 10px;
       border-radius: 4px;
-      border: 1px solid #b39c6a;
-      background: #f7f3e9;
+      border: 1.5px solid #b39c6a;
+      background: #eac784;
+      color: #3e3220;
       cursor: pointer;
+      font-family: 'Roboto Slab', 'Times New Roman', serif;
+      font-weight: bold;
+      box-shadow: 1px 2px 2px #6b4a1b;
       transition: background 0.2s, border-color 0.2s;
     }
     button:hover {
-      background: #ffe082;
-      border-color: #fbc02d;
+      background: #a3d977;
+      border-color: #5a9635;
+      color: #183616;
     }
     #gameStatus {
       font-weight: bold;
-      color: #388e3c;
+      color: #a3d977;
       margin-top: 12px;
       min-height: 1.5em;
     }
@@ -74,7 +97,7 @@
     <button onclick="startGame()">Restart</button>
   </div>
   <script>
-    // Your pre-made word list
+    
     const wordList = ["ABACK","ABASE","ABASH","ABATE","ABBEY","ABBOT","ABEAM","ABHOR","ABIDE","ABLED","ABODE","ABORT","ABOUT","ABOVE","ABUSE","ABUZZ","ABYSS","ACHED","ACHOO","ACING","ACORN","ACRES","ACRID","ACTED","ACTOR","ACUTE","ADAGE","ADAPT","ADDED","ADDER","ADDLE","ADEPT","ADIEU","ADIOS","ADLIB","ADMIT","ADOBE","ADOPT","ADORE","ADORN","ADULT","AEGIS","AFFIX","AFIRE","AFOOT","AFORE","AFOUL","AFTER","AGAIN","AGAPE","AGATE","AGAVE","AGENT","AGILE","AGING","AGLOW","AGONY","AGREE","AHEAD","AIDED","AILED","AIMED","AIRED","AIRER","AISLE","ALACK","ALARM","ALBUM","ALDER","ALERT","ALGAE","ALIAS","ALIBI","ALIEN","ALIGN","ALIKE","ALIVE","ALLAY","ALLEY","ALLOT","ALLOW","ALLOY","ALOFT","ALOHA","ALONE","ALONG","ALOOF","ALOUD","ALPHA","ALTAR","ALTER","AMASS","AMAZE","AMBER","AMBLE","AMEND","AMIGO","AMINO","AMISS","AMITY","AMONG","AMOUR","AMPED","AMPLE","AMPLY","AMUCK","AMUSE","ANGEL","ANGER","ANGLE","ANGRY","ANGST","ANISE","ANKLE","ANNEX","ANNOY","ANNUL","ANNUM","ANODE","ANTIC","ANTSY","ANVIL","AORTA","APACE","APART","APHID","APIAN","APING","APNEA","APPLE","APPLY","APRON","APTLY","ARBOR","ARCED","ARDOR","ARENA","ARGON","ARGOT","ARGUE","ARISE","ARMED","ARMOR","AROMA","AROSE","ARRAY","ARROW","ARSON","ARTSY","ASCOT","ASHEN","ASIDE","ASKED","ASKEW","ASPEN","ASPIC","ASSAY","ASSET","ASTER","ASTIR","ASTRO","ATLAS","ATOLL","ATONE","ATRIA","ATTIC","AUDIO","AUDIT","AUGHT","AUGUR","AURAL","AVAIL","AVERT","AVIAN","AVOID","AWAIT","AWAKE","AWARD","AWARE","AWASH","AWFUL","AWOKE","AXIAL","AXING","AXIOM","AXLED","AZURE",
     "BABEL","BACON","BADDY","BADGE","BADLY","BAGEL","BAGGY","BAIRN","BAIZE","BAKED","BAKER","BALDY","BALED","BALER","BALKY","BALLY","BALMY","BALSA","BANAL","BANDY","BANJO","BARED","BARER","BARGE","BARMY","BARON","BASAL","BASED","BASIC","BASIL","BASIN","BASIS","BASSO","BASTE","BATCH","BATED","BATHE","BATON","BATTY","BAULK","BAWDY","BAYED","BAYOU","BEACH","BEADS","BEADY","BEAKY","BEANO","BEARD","BEAST","BEAUT","BEBOP","BEECH","BEEFY","BEERY","BEFIT","BEFOG","BEGAN","BEGAT","BEGET","BEGIN","BEGUN","BEIGE","BEING","BELAY","BELCH","BELIE","BELLE","BELLY","BELOW","BENCH","BERET","BERRY","BERTH","BERYL","BESET","BESOT","BEVEL","BEZEL","BIBLE","BIDDY","BIDED","BIDET","BIGHT","BIGOT","BIKED","BIKER","BILGE","BILLY","BIMBO","BINGE","BINGO","BIOME","BIPED","BIPOD","BIRCH","BIRTH","BISON","BITER","BITSY","BITTY","BLACK","BLADE","BLAME","BLAND","BLANK","BLARE","BLAST","BLAZE","BLEAK","BLEAR","BLEAT","BLEED","BLEND","BLESS","BLEST","BLIMP","BLIND","BLINI","BLINK","BLISS","BLITZ","BLOAT","BLOCK","BLOKE","BLOND","BLOOD","BLOOM","BLOWN","BLOWY","BLUER","BLUES","BLUFF","BLUNT","BLURB","BLURT","BLUSH","BOARD","BOAST","BOBBY","BODED","BODGE","BOGEY","BOGGY","BOGIE","BOGUS","BOMBE","BONED","BONGO","BONNY","BONUS","BOOBY","BOOED","BOOMY","BOOST","BOOTH","BOOTY","BOOZE","BOOZY","BORAX","BORED","BORER","BORIC","BORNE","BORON","BOSOM","BOSON","BOSSY","BOSUN","BOTCH","BOUGH","BOULE","BOUND","BOWED","BOWEL","BOWER","BOWIE","BOXED","BOXER","BRACE","BRAID","BRAIN","BRAKE","BRAND","BRASH","BRASS","BRAVE","BRAVO","BRAWL","BRAWN","BREAD","BREAK","BREAM","BREED","BRENT","BRIAR","BRIBE","BRICK","BRIDE","BRIEF","BRINE","BRING","BRINK","BRINY","BRISK","BROAD","BROIL","BROKE","BROOD","BROOK","BROOM","BROTH","BROWN","BRUNG","BRUNT","BRUSH","BRUTE","BUDDY","BUDGE","BUGGY","BUGLE","BUILD","BUILT","BULGE","BULGY","BULKY","BULLY","BUMPY","BUNCH","BUNNY","BURLY","BURNT","BURST","BUSED","BUSHY","BUSTY","BUTCH","BUTTE","BUXOM","BUYER","BUZZY","BYLAW","BYWAY",
     "CABAL","CABBY","CABIN","CABLE","CACAO","CACHE","CACTI","CADDY","CADET","CADGE","CADRE","CAGED","CAGEY","CAIRN","CAKED","CALVE","CAMEL","CAMEO","CANAL","CANDY","CANED","CANER","CANNY","CANOE","CANON","CANTO","CAPED","CAPER","CAPON","CARAT","CARED","CARGO","CAROB","CAROL","CAROM","CARRY","CARTE","CARVE","CASED","CASTE","CATCH","CATER","CATTY","CAULK","CAUSE","CAVED","CAVIL","CAWED","CEASE","CEDAR","CEDED","CELLO","CHAFE","CHAFF","CHAIN","CHAIR","CHALK","CHAMP","CHANT","CHAOS","CHARD","CHARM","CHART","CHARY","CHASE","CHASM","CHEAP","CHEAT","CHECK","CHEEK","CHEEP","CHEER","CHESS","CHEST","CHEWY","CHICK","CHIDE","CHIEF","CHILD","CHILI","CHILL","CHIME","CHIMP","CHINA","CHINK","CHIRP","CHIVE","CHOCK","CHOIR","CHOKE","CHOMP","CHORD","CHORE","CHOSE","CHUCK","CHUFF","CHUMP","CHUNK","CHURN","CHUTE","CIDER","CIGAR","CINCH","CIRCA","CITED","CIVIC","CIVIL","CLAIM","CLAMP","CLANG","CLANK","CLASH","CLASP","CLASS","CLEAN","CLEAR","CLEFT","CLERK","CLICK","CLIFF","CLIMB","CLIME","CLING","CLINK","CLOAK","CLOCK","CLOMP","CLONE","CLOSE","CLOTH","CLOUD","CLOUT","CLOVE","CLOWN","CLUCK","CLUED","CLUMP","CLUNG","CLUNK","COACH","COAST","COBRA","COCKY","COCOA","CODED","CODER","CODEX","COKED","COLIC","COLON","COLOR","COMBO","COMET","COMFY","COMIC","COMMA","CONCH","CONDO","CONED","CONEY","CONGA","CONIC","COOED","COPED","COPER","COPSE","CORAL","CORER","CORGI","CORNY","CORPS","COSET","COSTA","COUCH","COUGH","COULD","COUNT","COUPE","COURT","COVEN","COVER","COVET","COVEY","COWED","COWER","COYLY","COYPU","COZEN","CRACK","CRAFT","CRAMP","CRANE","CRANK","CRASH","CRATE","CRAVE","CRAWL","CRAZE","CRAZY","CREAK","CREAM","CREDO","CREED","CREEK","CREEP","CREME","CREPE","CREPT","CRESS","CREST","CRICK","CRIED","CRIME","CRIMP","CRISP","CROAK","CROCK","CROFT","CRONE","CRONY","CROOK","CROON","CROSS","CROUP","CROWD","CROWN","CRUDE","CRUEL","CRUET","CRUFT","CRUMB","CRUSH","CRUST","CRYPT","CUBBY","CUBED","CUBIC","CUBIT","CUING","CULPA","CUMIN","CUPID","CUPPA","CURED","CURIA","CURIE","CURIO","CURLY","CURRY","CURSE","CURVE","CURVY","CUSHY","CUTER","CUTIE","CUTUP","CYCLE","CYNIC",
@@ -108,6 +131,8 @@
     let row1 = [], row2 = [];
     let swapCount = 0;
     let selected = null; // {row: 1 or 2, idx: index}
+    let isAnimating = false;
+
     function shuffle(arr) {
       let a = arr.slice();
       for (let i = a.length - 1; i > 0; i--) {
@@ -116,8 +141,8 @@
       }
       return a;
     }
+
     function startGame() {
-      // Pick two random words of same length
       let w1, w2, idx1, idx2;
       do {
         idx1 = Math.floor(Math.random() * wordList.length);
@@ -132,14 +157,17 @@
       row2 = shuffle(w2.split(""));
       swapCount = 0;
       selected = null;
+      isAnimating = false;
       updateDisplay();
       document.getElementById("gameStatus").textContent = "";
     }
+
     function updateDisplay() {
       const r1 = document.getElementById("row1");
       const r2 = document.getElementById("row2");
       r1.innerHTML = "";
       r2.innerHTML = "";
+
       row1.forEach((ch, i) => {
         const tile = document.createElement("div");
         tile.className = "tile" + (selected && selected.row === 1 && selected.idx === i ? " selected" : "");
@@ -147,6 +175,7 @@
         tile.onclick = () => selectTile(1, i);
         r1.appendChild(tile);
       });
+
       row2.forEach((ch, i) => {
         const tile = document.createElement("div");
         tile.className = "tile" + (selected && selected.row === 2 && selected.idx === i ? " selected" : "");
@@ -154,9 +183,13 @@
         tile.onclick = () => selectTile(2, i);
         r2.appendChild(tile);
       });
+
       document.getElementById("swapCount").textContent = swapCount;
     }
+
     function selectTile(row, idx) {
+      if (isAnimating) return; // Prevent interaction during animation
+
       if (!selected) {
         selected = { row, idx };
         updateDisplay();
@@ -164,22 +197,57 @@
         selected = null;
         updateDisplay();
       } else {
-        // Swap logic: within and between rows
-        if (selected.row === 1 && row === 1) {
-          [row1[selected.idx], row1[idx]] = [row1[idx], row1[selected.idx]];
-        } else if (selected.row === 2 && row === 2) {
-          [row2[selected.idx], row2[idx]] = [row2[idx], row2[selected.idx]];
-        } else if (selected.row === 1 && row === 2) {
-          [row1[selected.idx], row2[idx]] = [row2[idx], row1[selected.idx]];
-        } else if (selected.row === 2 && row === 1) {
-          [row2[selected.idx], row1[idx]] = [row1[idx], row2[selected.idx]];
+        // Animate the swap
+        animateSwap(selected, { row, idx });
+      }
+    }
+
+    function animateSwap(sel1, sel2) {
+      isAnimating = true;
+      const r1 = sel1.row === 1 ? document.getElementById("row1") : document.getElementById("row2");
+      const r2 = sel2.row === 1 ? document.getElementById("row1") : document.getElementById("row2");
+      const tile1 = r1.children[sel1.idx];
+      const tile2 = r2.children[sel2.idx];
+
+      tile1.classList.add("flipping");
+      tile2.classList.add("flipping");
+
+      setTimeout(() => {
+        // Swap letters in the data arrays
+        if (sel1.row === 1 && sel2.row === 1) {
+          [row1[sel1.idx], row1[sel2.idx]] = [row1[sel2.idx], row1[sel1.idx]];
+        } else if (sel1.row === 2 && sel2.row === 2) {
+          [row2[sel1.idx], row2[sel2.idx]] = [row2[sel2.idx], row2[sel1.idx]];
+        } else if (sel1.row === 1 && sel2.row === 2) {
+          [row1[sel1.idx], row2[sel2.idx]] = [row2[sel2.idx], row1[sel1.idx]];
+        } else if (sel1.row === 2 && sel2.row === 1) {
+          [row2[sel1.idx], row1[sel2.idx]] = [row1[sel2.idx], row2[sel1.idx]];
         }
         swapCount++;
         selected = null;
         updateDisplay();
-        checkWin();
-      }
+
+        // Briefly animate flipped state
+        const newR1 = sel1.row === 1 ? document.getElementById("row1") : document.getElementById("row2");
+        const newR2 = sel2.row === 1 ? document.getElementById("row1") : document.getElementById("row2");
+        newR1.children[sel1.idx].classList.add("flipping");
+        newR2.children[sel2.idx].classList.add("flipping");
+
+        setTimeout(() => {
+          newR1.children[sel1.idx].classList.remove("flipping");
+          newR2.children[sel2.idx].classList.remove("flipping");
+          isAnimating = false;
+          checkWin();
+        }, 320);
+
+      }, 300);
+
+      setTimeout(() => {
+        tile1.classList.remove("flipping");
+        tile2.classList.remove("flipping");
+      }, 600);
     }
+
     function checkWin() {
       if (row1.join("") === word1 && row2.join("") === word2) {
         document.getElementById("gameStatus").textContent = "You solved both words!";
@@ -191,7 +259,15 @@
         document.getElementById("gameStatus").textContent = "You matched two valid words!";
       }
     }
+
     window.onload = startGame;
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
