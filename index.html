@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Letter Swap Word Game</title>
+  <title>SWAPPLE</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:700" rel="stylesheet">
   <style>
@@ -125,52 +125,53 @@
     }
 
     @media (max-width: 600px) {
-      body {
-        padding: 8px;
-      }
-      #game {
-        padding: 10px 2vw;
-        margin-top: 16px;
-        width: 98vw;
-        min-width: 0;
-        box-sizing: border-box;
-      }
-      .instructions {
-        font-size: 1em;
-        margin-bottom: 10px;
-      }
-      .tile-container {
-        margin: 2vw 1vw;
-      }
-      .tile {
-        width: 12vw;
-        height: 12vw;
-        min-width: 38px;
-        min-height: 38px;
-        max-width: 56px;
-        max-height: 56px;
-      }
-      .tile-face {
-        font-size: 2.8vw;
-        min-font-size: 1.1em;
-      }
-      button {
-        font-size: 0.95em;
-        padding: 6px 10px;
-        margin-left: 0;
-        margin-top: 8px;
-        margin-bottom: 2vw;
-      }
-      #gameStatus {
-        font-size: 1em;
-        min-height: 1.1em;
-      }
-    }
+  body {
+    padding: 8px;
+  }
+  #game {
+    padding: 10px 2vw;
+    margin-top: 16px;
+    width: 98vw;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+  .instructions {
+    font-size: 1em;
+    margin-bottom: 10px;
+  }
+  .tile-container {
+    margin: 2vw 1vw;
+  }
+  .tile {
+    width: 16vw;
+    height: 16vw;
+    min-width: 42px;
+    min-height: 42px;
+    max-width: 64px;
+    max-height: 64px;
+  }
+  .tile-face {
+    /* Make font-size bigger relative to tile size */
+    font-size: 7vw;
+    min-font-size: 1.5em;
+  }
+  button {
+    font-size: 1.1em;
+    padding: 10px 14px;
+    margin-left: 0;
+    margin-top: 8px;
+    margin-bottom: 2vw;
+  }
+  #gameStatus {
+    font-size: 1.1em;
+    min-height: 1.1em;
+  }
+}
   </style>
 </head>
 <body>
-  <h2>Letter Swap Word Game</h2>
-  <div class="instructions">swap tiles to reveal two words</div>
+  <h2>SWAPPLE</h2>
+  <div class="instructions">Swap tiles to reveal two words</div>
   <div id="game">
     <div id="row1" class="tile-row"></div>
     <div id="row2" class="tile-row"></div>
