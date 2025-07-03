@@ -1,3 +1,4 @@
+      
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -125,48 +126,47 @@
     }
 
     @media (max-width: 600px) {
-  body {
-    padding: 8px;
-  }
-  #game {
-    padding: 10px 2vw;
-    margin-top: 16px;
-    width: 98vw;
-    min-width: 0;
-    box-sizing: border-box;
-  }
-  .instructions {
-    font-size: 1em;
-    margin-bottom: 10px;
-  }
-  .tile-container {
-    margin: 2vw 1vw;
-  }
-  .tile {
-    width: 16vw;
-    height: 16vw;
-    min-width: 42px;
-    min-height: 42px;
-    max-width: 64px;
-    max-height: 64px;
-  }
-  .tile-face {
-    /* Make font-size bigger relative to tile size */
-    font-size: 7vw;
-    min-font-size: 1.5em;
-  }
-  button {
-    font-size: 1.1em;
-    padding: 10px 14px;
-    margin-left: 0;
-    margin-top: 8px;
-    margin-bottom: 2vw;
-  }
-  #gameStatus {
-    font-size: 1.1em;
-    min-height: 1.1em;
-  }
-}
+      body {
+        padding: 8px;
+      }
+      #game {
+        padding: 10px 2vw;
+        margin-top: 16px;
+        width: 98vw;
+        min-width: 0;
+        box-sizing: border-box;
+      }
+      .instructions {
+        font-size: 1em;
+        margin-bottom: 10px;
+      }
+      .tile-container {
+        margin: 2vw 1vw;
+      }
+      .tile {
+        width: 16vw;
+        height: 16vw;
+        min-width: 42px;
+        min-height: 42px;
+        max-width: 64px;
+        max-height: 64px;
+      }
+      .tile-face {
+        font-size: 7vw;
+        min-font-size: 1.5em;
+      }
+      button {
+        font-size: 1.1em;
+        padding: 10px 14px;
+        margin-left: 0;
+        margin-top: 8px;
+        margin-bottom: 2vw;
+      }
+      #gameStatus {
+        font-size: 1.1em;
+        min-height: 1.1em;
+      }
+    }
   </style>
 </head>
 <body>
@@ -183,7 +183,8 @@
     <button id="revealBtn" onclick="revealTiles()">Reveal</button>
   </div>
   <script>
-                        const wordList = ["ABACK","ABASE","ABASH","ABATE","ABBEY","ABBOT","ABEAM","ABHOR","ABIDE","ABLED","ABODE","ABORT","ABOUT","ABOVE","ABUSE","ABUZZ","ABYSS","ACHED","ACHOO","ACING","ACORN","ACRES","ACRID","ACTED","ACTOR","ACUTE","ADAGE","ADAPT","ADDED","ADDER","ADDLE","ADEPT","ADIEU","ADIOS","ADLIB","ADMIT","ADOBE","ADOPT","ADORE","ADORN","ADULT","AEGIS","AFFIX","AFIRE","AFOOT","AFORE","AFOUL","AFTER","AGAIN","AGAPE","AGATE","AGAVE","AGENT","AGILE","AGING","AGLOW","AGONY","AGREE","AHEAD","AIDED","AILED","AIMED","AIRED","AIRER","AISLE","ALACK","ALARM","ALBUM","ALDER","ALERT","ALGAE","ALIAS","ALIBI","ALIEN","ALIGN","ALIKE","ALIVE","ALLAY","ALLEY","ALLOT","ALLOW","ALLOY","ALOFT","ALOHA","ALONE","ALONG","ALOOF","ALOUD","ALPHA","ALTAR","ALTER","AMASS","AMAZE","AMBER","AMBLE","AMEND","AMIGO","AMINO","AMISS","AMITY","AMONG","AMOUR","AMPED","AMPLE","AMPLY","AMUCK","AMUSE","ANGEL","ANGER","ANGLE","ANGRY","ANGST","ANISE","ANKLE","ANNEX","ANNOY","ANNUL","ANNUM","ANODE","ANTIC","ANTSY","ANVIL","AORTA","APACE","APART","APHID","APIAN","APING","APNEA","APPLE","APPLY","APRON","APTLY","ARBOR","ARCED","ARDOR","ARENA","ARGON","ARGOT","ARGUE","ARISE","ARMED","ARMOR","AROMA","AROSE","ARRAY","ARROW","ARSON","ARTSY","ASCOT","ASHEN","ASIDE","ASKED","ASKEW","ASPEN","ASPIC","ASSAY","ASSET","ASTER","ASTIR","ASTRO","ATLAS","ATOLL","ATONE","ATRIA","ATTIC","AUDIO","AUDIT","AUGHT","AUGUR","AURAL","AVAIL","AVERT","AVIAN","AVOID","AWAIT","AWAKE","AWARD","AWARE","AWASH","AWFUL","AWOKE","AXIAL","AXING","AXIOM","AXLED","AZURE",
+    // You can replace this word list with your full one!
+    const wordList = ["ABACK","ABASE","ABASH","ABATE","ABBEY","ABBOT","ABEAM","ABHOR","ABIDE","ABLED","ABODE","ABORT","ABOUT","ABOVE","ABUSE","ABUZZ","ABYSS","ACHED","ACHOO","ACING","ACORN","ACRES","ACRID","ACTED","ACTOR","ACUTE","ADAGE","ADAPT","ADDED","ADDER","ADDLE","ADEPT","ADIEU","ADIOS","ADLIB","ADMIT","ADOBE","ADOPT","ADORE","ADORN","ADULT","AEGIS","AFFIX","AFIRE","AFOOT","AFORE","AFOUL","AFTER","AGAIN","AGAPE","AGATE","AGAVE","AGENT","AGILE","AGING","AGLOW","AGONY","AGREE","AHEAD","AIDED","AILED","AIMED","AIRED","AIRER","AISLE","ALACK","ALARM","ALBUM","ALDER","ALERT","ALGAE","ALIAS","ALIBI","ALIEN","ALIGN","ALIKE","ALIVE","ALLAY","ALLEY","ALLOT","ALLOW","ALLOY","ALOFT","ALOHA","ALONE","ALONG","ALOOF","ALOUD","ALPHA","ALTAR","ALTER","AMASS","AMAZE","AMBER","AMBLE","AMEND","AMIGO","AMINO","AMISS","AMITY","AMONG","AMOUR","AMPED","AMPLE","AMPLY","AMUCK","AMUSE","ANGEL","ANGER","ANGLE","ANGRY","ANGST","ANISE","ANKLE","ANNEX","ANNOY","ANNUL","ANNUM","ANODE","ANTIC","ANTSY","ANVIL","AORTA","APACE","APART","APHID","APIAN","APING","APNEA","APPLE","APPLY","APRON","APTLY","ARBOR","ARCED","ARDOR","ARENA","ARGON","ARGOT","ARGUE","ARISE","ARMED","ARMOR","AROMA","AROSE","ARRAY","ARROW","ARSON","ARTSY","ASCOT","ASHEN","ASIDE","ASKED","ASKEW","ASPEN","ASPIC","ASSAY","ASSET","ASTER","ASTIR","ASTRO","ATLAS","ATOLL","ATONE","ATRIA","ATTIC","AUDIO","AUDIT","AUGHT","AUGUR","AURAL","AVAIL","AVERT","AVIAN","AVOID","AWAIT","AWAKE","AWARD","AWARE","AWASH","AWFUL","AWOKE","AXIAL","AXING","AXIOM","AXLED","AZURE",
     "BABEL","BACON","BADDY","BADGE","BADLY","BAGEL","BAGGY","BAIRN","BAIZE","BAKED","BAKER","BALDY","BALED","BALER","BALKY","BALLY","BALMY","BALSA","BANAL","BANDY","BANJO","BARED","BARER","BARGE","BARMY","BARON","BASAL","BASED","BASIC","BASIL","BASIN","BASIS","BASSO","BASTE","BATCH","BATED","BATHE","BATON","BATTY","BAULK","BAWDY","BAYED","BAYOU","BEACH","BEADS","BEADY","BEAKY","BEANO","BEARD","BEAST","BEAUT","BEBOP","BEECH","BEEFY","BEERY","BEFIT","BEFOG","BEGAN","BEGAT","BEGET","BEGIN","BEGUN","BEIGE","BEING","BELAY","BELCH","BELIE","BELLE","BELLY","BELOW","BENCH","BERET","BERRY","BERTH","BERYL","BESET","BESOT","BEVEL","BEZEL","BIBLE","BIDDY","BIDED","BIDET","BIGHT","BIGOT","BIKED","BIKER","BILGE","BILLY","BIMBO","BINGE","BINGO","BIOME","BIPED","BIPOD","BIRCH","BIRTH","BISON","BITER","BITSY","BITTY","BLACK","BLADE","BLAME","BLAND","BLANK","BLARE","BLAST","BLAZE","BLEAK","BLEAR","BLEAT","BLEED","BLEND","BLESS","BLEST","BLIMP","BLIND","BLINI","BLINK","BLISS","BLITZ","BLOAT","BLOCK","BLOKE","BLOND","BLOOD","BLOOM","BLOWN","BLOWY","BLUER","BLUES","BLUFF","BLUNT","BLURB","BLURT","BLUSH","BOARD","BOAST","BOBBY","BODED","BODGE","BOGEY","BOGGY","BOGIE","BOGUS","BOMBE","BONED","BONGO","BONNY","BONUS","BOOBY","BOOED","BOOMY","BOOST","BOOTH","BOOTY","BOOZE","BOOZY","BORAX","BORED","BORER","BORIC","BORNE","BORON","BOSOM","BOSON","BOSSY","BOSUN","BOTCH","BOUGH","BOULE","BOUND","BOWED","BOWEL","BOWER","BOWIE","BOXED","BOXER","BRACE","BRAID","BRAIN","BRAKE","BRAND","BRASH","BRASS","BRAVE","BRAVO","BRAWL","BRAWN","BREAD","BREAK","BREAM","BREED","BRENT","BRIAR","BRIBE","BRICK","BRIDE","BRIEF","BRINE","BRING","BRINK","BRINY","BRISK","BROAD","BROIL","BROKE","BROOD","BROOK","BROOM","BROTH","BROWN","BRUNG","BRUNT","BRUSH","BRUTE","BUDDY","BUDGE","BUGGY","BUGLE","BUILD","BUILT","BULGE","BULGY","BULKY","BULLY","BUMPY","BUNCH","BUNNY","BURLY","BURNT","BURST","BUSED","BUSHY","BUSTY","BUTCH","BUTTE","BUXOM","BUYER","BUZZY","BYLAW","BYWAY",
     "CABAL","CABBY","CABIN","CABLE","CACAO","CACHE","CACTI","CADDY","CADET","CADGE","CADRE","CAGED","CAGEY","CAIRN","CAKED","CALVE","CAMEL","CAMEO","CANAL","CANDY","CANED","CANER","CANNY","CANOE","CANON","CANTO","CAPED","CAPER","CAPON","CARAT","CARED","CARGO","CAROB","CAROL","CAROM","CARRY","CARTE","CARVE","CASED","CASTE","CATCH","CATER","CATTY","CAULK","CAUSE","CAVED","CAVIL","CAWED","CEASE","CEDAR","CEDED","CELLO","CHAFE","CHAFF","CHAIN","CHAIR","CHALK","CHAMP","CHANT","CHAOS","CHARD","CHARM","CHART","CHARY","CHASE","CHASM","CHEAP","CHEAT","CHECK","CHEEK","CHEEP","CHEER","CHESS","CHEST","CHEWY","CHICK","CHIDE","CHIEF","CHILD","CHILI","CHILL","CHIME","CHIMP","CHINA","CHINK","CHIRP","CHIVE","CHOCK","CHOIR","CHOKE","CHOMP","CHORD","CHORE","CHOSE","CHUCK","CHUFF","CHUMP","CHUNK","CHURN","CHUTE","CIDER","CIGAR","CINCH","CIRCA","CITED","CIVIC","CIVIL","CLAIM","CLAMP","CLANG","CLANK","CLASH","CLASP","CLASS","CLEAN","CLEAR","CLEFT","CLERK","CLICK","CLIFF","CLIMB","CLIME","CLING","CLINK","CLOAK","CLOCK","CLOMP","CLONE","CLOSE","CLOTH","CLOUD","CLOUT","CLOVE","CLOWN","CLUCK","CLUED","CLUMP","CLUNG","CLUNK","COACH","COAST","COBRA","COCKY","COCOA","CODED","CODER","CODEX","COKED","COLIC","COLON","COLOR","COMBO","COMET","COMFY","COMIC","COMMA","CONCH","CONDO","CONED","CONEY","CONGA","CONIC","COOED","COPED","COPER","COPSE","CORAL","CORER","CORGI","CORNY","CORPS","COSET","COSTA","COUCH","COUGH","COULD","COUNT","COUPE","COURT","COVEN","COVER","COVET","COVEY","COWED","COWER","COYLY","COYPU","COZEN","CRACK","CRAFT","CRAMP","CRANE","CRANK","CRASH","CRATE","CRAVE","CRAWL","CRAZE","CRAZY","CREAK","CREAM","CREDO","CREED","CREEK","CREEP","CREME","CREPE","CREPT","CRESS","CREST","CRICK","CRIED","CRIME","CRIMP","CRISP","CROAK","CROCK","CROFT","CRONE","CRONY","CROOK","CROON","CROSS","CROUP","CROWD","CROWN","CRUDE","CRUEL","CRUET","CRUFT","CRUMB","CRUSH","CRUST","CRYPT","CUBBY","CUBED","CUBIC","CUBIT","CUING","CULPA","CUMIN","CUPID","CUPPA","CURED","CURIA","CURIE","CURIO","CURLY","CURRY","CURSE","CURVE","CURVY","CUSHY","CUTER","CUTIE","CUTUP","CYCLE","CYNIC",
     "DACHA","DADDY","DAILY","DAIRY","DAISY","DALLY","DANCE","DANDY","DARED","DASHY","DATED","DATER","DATUM","DAUNT","DAZED","DEALT","DEARY","DEATH","DEBAR","DEBIT","DEBUG","DEBUT","DECAF","DECAL","DECAY","DECOR","DECOY","DECRY","DEFER","DEFOG","DEIFY","DEIGN","DEITY","DELAY","DELTA","DELVE","DEMON","DEMUR","DENIM","DENSE","DEPOT","DEPTH","DERBY","DETER","DEUCE","DEVIL","DEWED","DIARY","DICED","DICEY","DICKY","DICTA","DIDDY","DIGIT","DILLY","DIMLY","DINAR","DINED","DINER","DINGO","DINGY","DINKY","DIODE","DIPPY","DIRER","DIRGE","DIRTY","DISCO","DISHY","DITCH","DITTO","DITTY","DIVAN","DIVED","DIVER","DIVOT","DIVVY","DIZZY","DJINN","DODGE","DODGY","DOGGY","DOGMA","DOILY","DOING","DOLCE","DOLED","DOLLY","DOMED","DONNA","DONOR","DONUT","DOOZY","DOPED","DOPEY","DORKY","DOSED","DOTED","DOTTY","DOUBT","DOUGH","DOUSE","DOWDY","DOWEL","DOWNY","DOWRY","DOWSE","DOYEN","DOZED","DOZEN","DRAFT","DRAIN","DRAKE","DRAMA","DRANK","DRAPE","DRAWL","DRAWN","DREAD","DREAM","DREAR","DRECK","DRESS","DRIED","DRIER","DRIFT","DRILL","DRILY","DRINK","DRIVE","DROID","DROLL","DRONE","DROOL","DROOP","DROSS","DROVE","DROWN","DRUID","DRUNK","DRYAD","DRYER","DRYLY","DUCAL","DUCAT","DUCHY","DUCKY","DULLY","DUMMY","DUMPY","DUNCE","DUPED","DUSKY","DUSTY","DUTCH","DUVET","DWARF","DWEEB","DWELL","DWELT","DYING",
@@ -221,6 +222,7 @@
     let hintsLeft = 5;
     let hintsUsed = 0;
     let gameFinished = false;
+    let revealedByButton = false;
 
     function shuffle(arr) {
       let a = arr.slice();
@@ -250,6 +252,7 @@
       hintsLeft = 5;
       hintsUsed = 0;
       gameFinished = false;
+      revealedByButton = false;
       updateDisplay();
       document.getElementById("gameStatus").textContent = "";
       document.getElementById("hintBtn").disabled = false;
@@ -358,7 +361,6 @@
 
     function useHint() {
       if (hintsLeft === 0 || isAnimating || gameFinished) return;
-      // Find the first incorrect and unlocked tile and put the correct letter there
       const solution = (word1 + word2).split("");
       let indices = [];
       for (let i = 0; i < 10; i++) {
@@ -368,7 +370,6 @@
       }
       if (indices.length === 0) return;
       const i = indices[0];
-      // Find where the correct letter is among unlocked tiles
       let targetLetter = solution[i];
       let swapIdx = -1;
       for (let j = 0; j < 10; j++) {
@@ -377,7 +378,6 @@
           break;
         }
       }
-      // If the correct letter is already in place, just lock it
       if (tiles[i] === targetLetter) {
         locked[i] = true;
         hintsLeft--;
@@ -385,7 +385,6 @@
         updateDisplay();
         checkWin();
       } else if (swapIdx !== -1) {
-        // Animate the flip
         animateSingleFlip(i, swapIdx, () => {
           locked[i] = true;
           hintsLeft--;
@@ -431,31 +430,26 @@
     function revealTiles() {
       if (isAnimating || gameFinished) return;
       document.getElementById("revealBtn").disabled = true;
-      // Animate all tiles to their correct positions
+      revealedByButton = true; // <--- THIS FLAG
       const solution = (word1 + word2).split("");
       let moves = [];
       for (let i = 0; i < 10; i++) {
         if (tiles[i] !== solution[i]) {
-          // Find the first index after i where the correct letter exists and is not already in place
           for (let j = i + 1; j < 10; j++) {
             if (tiles[j] === solution[i] && tiles[j] !== solution[j]) {
               moves.push([i, j]);
-              // Swap immediately for the next round of checks
               [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
               break;
             }
           }
         }
       }
-      // Now re-scramble back so we can animate
       for (let k = moves.length - 1; k >= 0; k--) {
         const [i, j] = moves[k];
         [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
       }
-      // Animate swaps one by one
       function animateMoves(idx) {
         if (idx >= moves.length) {
-          // All done, lock all tiles
           locked = Array(10).fill(true);
           gameFinished = true;
           updateDisplay();
@@ -486,7 +480,10 @@
         locked = Array(10).fill(true);
         gameFinished = true;
         let goes = swapCount + hintsUsed;
-        if ((row1Word === word1 && row2Word === word2) || (row1Word === word2 && row2Word === word1)) {
+        if (revealedByButton) {
+          document.getElementById("gameStatus").textContent = `Sorry, you didn't solve it!`;
+          revealedByButton = false;
+        } else if ((row1Word === word1 && row2Word === word2) || (row1Word === word2 && row2Word === word1)) {
           document.getElementById("gameStatus").textContent = `You solved for the original words! You did it in ${goes} goes.`;
         } else {
           document.getElementById("gameStatus").textContent = `You matched two valid words! You did it in ${goes} goes.`;
@@ -501,6 +498,3 @@
   </script>
 </body>
 </html>
-
-
-
